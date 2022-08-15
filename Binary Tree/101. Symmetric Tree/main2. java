@@ -1,0 +1,28 @@
+class Solution {
+    public boolean isSymmetric2(TreeNode root) {
+        Deque<TreeNode> deque = new LinkedList<>();
+        deque.offerFirst(root.left);
+        deque.offerLast(root.right);
+        while (!deque.isEmpty()) {
+            TreeNode leftNode = deque.pollFirst();
+            TreeNode rightNode = deque.pollLast();
+            if (leftNode == null && rightNode == null) {
+                continue;
+            }
+            if (leftNode == null && rightNode != null) {
+                return false;
+            }
+            if (leftNode != null && rightNode == null) {
+                return false;
+            }
+            if (leftNode.val != rightNode.val) {
+                return false;
+            }
+            deque.offerFirst(leftNode.left);
+            deque.offerFirst(leftNode.right);
+            deque.offerLast(rightNode.right);
+            deque.offerLast(rightNode.left);
+        }
+        return true;
+    }
+}
