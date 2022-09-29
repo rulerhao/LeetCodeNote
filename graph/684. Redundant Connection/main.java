@@ -1,3 +1,5 @@
+// Only 1 cycle would be at the graph beacuse the lowest numbers of lines to chain all of nodes is n - 1. It means the rest of line can do is making the tree to have one cycle.
+
 class Solution {
 
     int[] parents;
@@ -23,3 +25,12 @@ class Solution {
     }
     
 }
+
+//     private int find(int num) {
+//         if (num == parents[num]) return parents[num];
+//         return find(parents[num]);
+//     }
+    
+//     private void union(int num1, int num2) {
+//         parents[find(num2)] = find(num1);
+//     }
