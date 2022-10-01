@@ -42,39 +42,27 @@
 class Solution {
 
     public int networkDelayTime(int[][] times, int n, int k) {
-        // initialize an array with max value of size n
         int[] costs = new int[n];
         Arrays.fill(costs, Integer.MAX_VALUE);
-
         costs[k - 1] = 0;
-
+        
         for (int i = 0; i < n; i++) {
-
-            // loop through times
             for (int j = 0; j < times.length; j++) {
-                int src = times[j][0]; // source
-                int tgt = times[j][1]; // target
-                int cost = times[j][2]; // cost
-
-                if (
-                    costs[src - 1] != Integer.MAX_VALUE &&
-                    costs[src - 1] + cost < costs[tgt - 1]
-                ) {
-                    costs[tgt - 1] = costs[src - 1] + cost;
+                int src = times[j][0];
+                int tgt = times[j][1];
+                int cost = times[j][2];
+                if (costs[src - 1] != Integer.MAX_VALUE) {
+                    costs[tgt - 1] = Math.min(costs[tgt - 1], costs[src - 1] + cost);
                 }
             }
         }
-
-        int result = Integer.MIN_VALUE;
-
-        // calculate max value
-        for (int i = 0; i < n; i++) {
-            if (costs[i] == Integer.MAX_VALUE)
-                return -1;
+        
+        int result = 0;
+        for (int i = 0; i < costs.length; i++) {
+            if (costs[i] == Integer.MAX_VALUE) return -1;
             result = Math.max(result, costs[i]);
         }
-
-        // return result
+        
         return result;
     }
 }
