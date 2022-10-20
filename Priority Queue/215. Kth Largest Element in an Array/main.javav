@@ -1,0 +1,39 @@
+// Use quick select
+// Which means if put the pivot to the index which elements before it are smaller and after it are larger.
+// And quick select until the pivot is at the index len - k(because if the pivot is at the 3th from right edge.
+// It means the pivot is the 3th largest number)
+// Time complexity: O(n)
+// Space complexity: O(1) (don't use extra memory because all the modify are inplace.)
+public class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        int start = 0;
+        int end = nums.length - 1;
+        int index = nums.length - k; // Kth largest location.
+        while (start <= end) { // Do again and again until find the index that right elements number is k - 1
+            int pivot = partion(nums, start, end);
+            if (pivot < index) start = pivot + 1;
+            else if (pivot > index) end = pivot - 1;
+            else return nums[pivot];
+        }
+        return nums[start];
+    }
+    
+    private int partion(int[] nums, int start, int end) {
+        int pivot = start;
+        start = pivot + 1;
+        while (start <= end) {
+            while (start <= end && nums[pivot] >= nums[start]) start++;
+            while (start <= end && nums[pivot] < nums[end]) end--;
+            if (start > end) break; // Find the pivot location.
+            swap(nums, start, end); // Swap it because nums[end] smaller than pivot, nums[start] larger than pivot.
+        }
+        swap(nums, pivot, end);
+        return end;
+    }
+    
+    private void swap(int[] nums, int i, int j) {
+        int temp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = temp;
+    }
+}
