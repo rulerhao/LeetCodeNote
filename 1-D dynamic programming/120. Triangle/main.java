@@ -26,6 +26,6 @@ class Solution {
             }
         }
         
-        return A[0];
+        return dp[0];
     }
 }
